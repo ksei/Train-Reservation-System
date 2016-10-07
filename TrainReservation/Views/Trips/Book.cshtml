@@ -1,0 +1,24 @@
+﻿@model TrainReservation.Models.Bookings
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Confirm";
+}
+
+<h2>Confirm Booking</h2>
+
+<h3>Are you sure you want to book this trip?</h3>
+<div>
+    <h4>Trip</h4>
+    <hr />
+    
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <button onclick="@Url.Action("BookingConfirmed" , "Confirm", new { id = Model.TripID, sender = HttpContext.Current.User.Identity.GetUserId() })">Confirm</button> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+</div>

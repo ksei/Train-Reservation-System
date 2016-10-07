@@ -1,0 +1,80 @@
+﻿@model IEnumerable<TrainReservation.Models.Trip>
+@using Microsoft.AspNet.Identity
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Available Trips</h2>
+
+<p>
+@if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated && User.IsInRole("admin") )
+{ @Html.ActionLink("Create New", "Create")}
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Departure)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Departure_Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Destination)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Arrival_Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Seats)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Departure)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Departure_Time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Destination)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Arrival_Time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Seats)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+      
+       
+               
+@if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.TripID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.TripID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.TripID })
+    </td>
+}    
+        
+        @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated && !User.IsInRole("admin"))
+        {
+            <td>
+                @Html.ActionLink("Book", "Book", new { id = item.TripID, sender = HttpContext.Current.User.Identity.GetUserId() }) 
+            </td>
+        }      
+    </tr>
+}
+
+</table>
