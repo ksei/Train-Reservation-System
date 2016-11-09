@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -121,6 +122,11 @@ namespace TrainReservation.Controllers
 
         public ActionResult Book(int? id, string sender)
         {
+            Bookings booking = new Bookings();
+
+            booking.TripID = (int)id;
+            booking.UserId = sender;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -131,12 +137,16 @@ namespace TrainReservation.Controllers
                 return HttpNotFound();
             }
 
+            BookingConfirmationModel mymodel = new BookingConfirmationModel();
 
-            Bookings booking = new Bookings();
+            mymodel.Trips = trip;
+            mymodel.Bookings = booking;
+            
+            
+           
 
-            booking.TripID = (int)id;
-            booking.UserId = sender;
-            return View(booking);
+            return View(mymodel);
+
         }
 
         // POST: Trips/Delete/5
@@ -144,12 +154,27 @@ namespace TrainReservation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult BookingConfirmed(int?id, string sender)
         {
+
+         
+
             Bookings booking = new Bookings();
             booking.TripID = (int)id;
             booking.UserId = sender;
             db.Bookings.Add(booking);
+            db.Trips.Find(booking.TripID).Seats--;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Confirmed");
+        }
+
+        public ActionResult Confirmed()
+        {
+            return View();
+
+        }
+
+        private dynamic GetTrips()
+        {
+            throw new NotImplementedException();
         }
 
         protected override void Dispose(bool disposing)

@@ -1,4 +1,4 @@
-﻿@model TrainReservation.Models.Bookings
+﻿@model TrainReservation.Models.BookingConfirmationModel
 @using Microsoft.AspNet.Identity
 
 @{
@@ -11,13 +11,53 @@
 <div>
     <h4>Trip</h4>
     <hr />
-    
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Trips.Departure)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.Trips.Departure)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trips.Departure_Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trips.Departure_Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trips.Destination)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trips.Destination)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trips.Arrival_Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trips.Arrival_Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trips.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trips.Price)
+        </dd>
+
+    </dl>
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
             <div class="form-actions no-color">
-                <button onclick="@Url.Action("BookingConfirmed" , "Confirm", new { id = Model.TripID, sender = HttpContext.Current.User.Identity.GetUserId() })">Confirm</button> |
+                <button onclick="@Url.Action("BookingConfirmed" , "Confirm", new { id = Model.Bookings.TripID , sender = HttpContext.Current.User.Identity.GetUserId() })">Confirm</button> |
                 @Html.ActionLink("Back to List", "Index")
             </div>
         }
