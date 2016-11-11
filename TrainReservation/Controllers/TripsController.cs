@@ -15,7 +15,7 @@ namespace TrainReservation.Controllers
     public class TripsController : Controller
     {
         private TrainReservationDbContext db = new TrainReservationDbContext();
-
+        private ApplicationDbContext udb = new ApplicationDbContext();
         // GET: Trips
         public ActionResult Index()
         {
@@ -38,8 +38,11 @@ namespace TrainReservation.Controllers
         }
 
         // GET: Trips/Create
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
+            if (!User.IsInRole("admin"))
+                return Redirect("Index");
             return View();
         }
 
@@ -114,6 +117,8 @@ namespace TrainReservation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            deleteBookings(id);
+            refundUsers(id);
             Trip trip = db.Trips.Find(id);
             db.Trips.Remove(trip);
             db.SaveChanges();
@@ -156,13 +161,15 @@ namespace TrainReservation.Controllers
         {
 
          
-
+            
             Bookings booking = new Bookings();
             booking.TripID = (int)id;
             booking.UserId = sender;
             db.Bookings.Add(booking);
             db.Trips.Find(booking.TripID).Seats--;
             db.SaveChanges();
+            udb.Users.Find(sender).Due += db.Trips.Find(booking.TripID).Price;
+            udb.SaveChanges();
             return RedirectToAction("Confirmed");
         }
 
@@ -184,6 +191,37 @@ namespace TrainReservation.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public void deleteBookings(int id)
+        {
+           var booking =  from b in db.Bookings
+                          where b.TripID == id
+                          select b;
+
+            
+            foreach (Bookings b in booking)
+            {
+                db.Bookings.Remove(b);
+            }
+
+        }
+
+        public void refundUsers(int id)
+        {
+            var booking = from b in db.Bookings
+                          where b.TripID == id
+                          select b;
+
+            decimal p = db.Trips.Find(id).Price;
+
+            foreach (Bookings b in booking)
+            {
+                
+                udb.Users.Find(b.UserId).Due -= p;
+            }
+
+            udb.SaveChanges();
         }
     }
 }

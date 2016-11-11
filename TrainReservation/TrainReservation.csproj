@@ -295,6 +295,7 @@
     <Content Include="Views\Bookings\Index.cshtml" />
     <Content Include="Views\Trips\Book.cshtml" />
     <Content Include="Views\Trips\Confirmed.cshtml" />
+    <Content Include="Views\Manage\AllUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

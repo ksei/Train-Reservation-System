@@ -22,10 +22,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated && User.IsInRole("admin"))
-                    {<li>@Html.ActionLink("Edit Trips", "Index", "Trips")</li>}
+                    {<li>@Html.ActionLink("Edit Trips", "Index", "Trips")</li>
+                    <li>@Html.ActionLink("View Users", "AllUsers", "Manage")</li>}
                     else
                     {<li>@Html.ActionLink("View Trips", "Index", "Trips")</li>}
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>

@@ -68,10 +68,18 @@
     </td>
 }    
         
-        @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated && !User.IsInRole("admin"))
+        @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated && !User.IsInRole("admin") && item.Seats >0)
         {
             <td>
                 @Html.ActionLink("Book", "Book", new { id = item.TripID, sender = HttpContext.Current.User.Identity.GetUserId() }) 
+            </td>
+        }      
+
+
+        @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated && !User.IsInRole("admin") && item.Seats == 0)
+        {
+            <td>
+               Closed
             </td>
         }      
     </tr>

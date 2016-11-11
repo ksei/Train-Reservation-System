@@ -16,6 +16,17 @@ namespace TrainReservation.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string Name { get; set; }
+
+        public int Age { get; set; }
+
+        public decimal Due { get; set; }
+
+        public void charge(decimal p)
+        {
+            Due = Due + p;
+        }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -29,5 +40,6 @@ namespace TrainReservation.Models
         {
             return new ApplicationDbContext();
         }
+
     }
 }

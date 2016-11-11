@@ -12,7 +12,7 @@ namespace TrainReservation.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "TrainReservation.Models.ApplicationDbContext";
         }
 

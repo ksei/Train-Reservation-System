@@ -13,6 +13,7 @@ namespace TrainReservation.Controllers
     [Authorize]
     public class ManageController : Controller
     {
+        private ApplicationDbContext udb = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -218,6 +219,22 @@ namespace TrainReservation.Controllers
         public ActionResult ChangePassword()
         {
             return View();
+        }
+
+        //View All Users
+        
+        public ActionResult AllUsers()
+        {
+            if (!User.IsInRole("admin"))
+                return Redirect("Index");
+            else
+            {
+
+
+                string id = User.Identity.GetUserId();
+               
+                return View(udb.Users.Where(s => s.Id != id));
+            }
         }
 
         //
