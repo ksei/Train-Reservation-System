@@ -1,44 +1,76 @@
-﻿@model IEnumerable<TrainReservation.Models.Bookings>
+﻿@model  IEnumerable<TrainReservation.Models.ViewBookingsModel>
+@using Microsoft.AspNet.Identity
 
-@{
-    ViewBag.Title = "Index";
+
+    @{ViewBag.Title = "Bookings";}
+
+
+@if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{
+<h2>All Bookings</h2>
+}
+else
+{
+    <h2>Your Bookings</h2>
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TripID)
+            @Html.DisplayNameFor(model => model.bookingId)
         </th>
+
         <th>
-            @Html.DisplayNameFor(model => model.UserId)
+            @Html.DisplayNameFor(model => model.tripId)
         </th>
+
         <th>
-            @Html.DisplayNameFor(model => model.Number_of_Seats)
+            @Html.DisplayNameFor(model => model.tripName)
         </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.seatId)
+        </th>
+@if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{  <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+}
+        <th>
+            @Html.DisplayNameFor(model => model.Time)
+        </th>
+
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.TripID)
+            @Html.DisplayFor(modelItem => item.bookingId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserId)
+            @Html.DisplayFor(modelItem => item.tripId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Number_of_Seats)
+            @Html.DisplayFor(modelItem => item.tripName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BookingID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BookingID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BookingID })
+            @Html.DisplayFor(modelItem => item.seatId)
         </td>
+       @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated && User.IsInRole("admin"))
+       { <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+       }
+        <td>
+            @Html.DisplayFor(modelItem => item.Time)
+        </td>
+        
+        <td>
+            
+                @Html.ActionLink("Details", "Details", new { id = item.bookingId }) |
+                @Html.ActionLink("Cancel Booking", "Delete", new { id = item.bookingId })
+</td>
     </tr>
 }
 

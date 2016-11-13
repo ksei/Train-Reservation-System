@@ -53,6 +53,8 @@ namespace TrainReservation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "TripID,Departure,Departure_Time,Destination,Arrival_Time,Seats,Price")] Trip trip)
         {
+            
+            trip.SeatPlan = generateSeatPlan(trip.Seats);
             if (ModelState.IsValid)
             {
                 db.Trips.Add(trip);
@@ -131,7 +133,7 @@ namespace TrainReservation.Controllers
 
             booking.TripID = (int)id;
             booking.UserId = sender;
-
+            booking.SeatId = findNextAvailableSeat((int)id);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -165,6 +167,8 @@ namespace TrainReservation.Controllers
             Bookings booking = new Bookings();
             booking.TripID = (int)id;
             booking.UserId = sender;
+            booking.SeatId = findNextAvailableSeat((int)id);
+            occupySeat(booking.SeatId, (int)id);
             db.Bookings.Add(booking);
             db.Trips.Find(booking.TripID).Seats--;
             db.SaveChanges();
@@ -223,5 +227,59 @@ namespace TrainReservation.Controllers
 
             udb.SaveChanges();
         }
+
+        public string findNextAvailableSeat(int id)
+        {
+            string [] seat = db.Trips.Find(id).SeatPlan.Split(',');
+            
+            for (int i = 0;  i < seat.GetLength(0); i++)
+            {
+                if (seat[i][3] == '0')
+                    return seat[i].Substring(0, 3);
+            }
+
+            return "000";
+
+
+        }
+
+        public void occupySeat(string seat, int id)
+        {
+            string Plan = db.Trips.Find(id).SeatPlan;
+            char[] array = Plan.ToCharArray();
+            if (seat != "000")
+            {
+                if (Plan.ElementAt(Plan.IndexOf(seat) + 3) == '0')
+                    array[Plan.IndexOf(seat) + 3] = '1';
+
+
+            }
+
+            db.Trips.Find(id).SeatPlan = new string(array);
+
+        }
+
+        
+
+        public string generateSeatPlan(int seatNo)
+        {
+            string Plan = "";
+
+            for (int i = 1; i<=seatNo/24; i ++)
+            {
+                for (int j = 1; j <=6; j++)
+                {
+                    Plan = Plan + i.ToString() + j.ToString() + "A0,";
+                    Plan = Plan + i.ToString() + j.ToString() + "B0,";
+                    Plan = Plan + i.ToString() + j.ToString() + "C0,";
+                    Plan = Plan + i.ToString() + j.ToString() + "D0,";
+                }
+            }
+
+           Plan =  Plan.Remove(Plan.Length - 1);
+
+            return Plan;
+        }
     }
+
 }

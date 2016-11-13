@@ -19,6 +19,7 @@ namespace TrainReservation.Models
         public DateTime Arrival_Time { get; set; }
         public int Seats { get; set; }
         public decimal Price { get; set; }
+        public string SeatPlan { get; set; }
 
     }
 

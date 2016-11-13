@@ -14,7 +14,9 @@ namespace TrainReservation.Models
         public int BookingID { get; set; }
         public int TripID { get; set; }
         public string UserId { get; set; }
-        public int Number_of_Seats { get; set; }
+
+        [Display(Name = "Seat Number")]
+        public string SeatId { get; set; }
 
 
     }

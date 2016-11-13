@@ -1,38 +1,37 @@
-﻿@model TrainReservation.Models.Bookings
-
+﻿@model  TrainReservation.Models.ViewBookingsModel
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Cancel Booking</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Are you sure you want to cancel your booking?</h3>
 <div>
-    <h4>Bookings</h4>
-    <hr />
+    
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.TripID)
+            @Html.DisplayNameFor(model => model.tripId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TripID)
+            @Html.DisplayFor(model => Model.tripId)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.UserId)
+            @Html.DisplayNameFor(model => model.tripName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserId)
+            @Html.DisplayFor(model => Model.tripName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Number_of_Seats)
+            @Html.DisplayNameFor(model => model.seatId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Number_of_Seats)
+            @Html.DisplayFor(model => Model.seatId)
         </dd>
 
     </dl>

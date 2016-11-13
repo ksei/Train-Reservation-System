@@ -41,5 +41,8 @@ namespace TrainReservation.Models
             return new ApplicationDbContext();
         }
 
+      // public System.Data.Entity.DbSet<TrainReservation.Models.ApplicationUser> IdentityUsers { get; set; }
+
     }
+
 }
