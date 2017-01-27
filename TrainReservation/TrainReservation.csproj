@@ -79,6 +79,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -226,7 +227,28 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\Train.png" />
+    <Content Include="Content\Delete.css" />
+    <Content Include="Content\etalage.css" />
+    <Content Include="Content\fwslider.css" />
+    <Content Include="Content\Images\img\a22.png" />
+    <Content Include="Content\Images\img\b05.png" />
+    <Content Include="Content\Images\img\blue.jpg" />
+    <Content Include="Content\Images\img\c-finger-pointing.png" />
+    <Content Include="Content\Images\img\c-navigator-horizontal.png" />
+    <Content Include="Content\Images\img\c-phone-horizontal.png" />
+    <Content Include="Content\Images\img\c-slide-1.jpg" />
+    <Content Include="Content\Images\img\c-slide-3.jpg" />
+    <Content Include="Content\Images\img\loading.gif" />
+    <Content Include="Content\Images\img\purple.jpg" />
+    <Content Include="Content\Images\img\red.jpg" />
+    <Content Include="Content\jquery.fancybox.css" />
+    <Content Include="Content\LayoutBackup.txt" />
+    <Content Include="Content\magnific-popup.css" />
+    <Content Include="Content\Parallax.css" />
+    <Content Include="Content\NavBar.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\style1.css" />
+    <Content Include="Content\Train.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -238,10 +260,20 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="App_Code\MyHelpers.cshtml" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\classie.js" />
+    <Content Include="Scripts\fwslider.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.etalage.min.js" />
+    <Content Include="Scripts\jquery.fancybox.js" />
+    <Content Include="Scripts\jquery.flexisel.js" />
+    <Content Include="Scripts\jquery.magnific-popup.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -249,7 +281,10 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Search.js" />
     <Content Include="Scripts\_references.js" />
+    <None Include="Views\Trips\SearchTrips.cshtml" />
+    <Content Include="Views\Trips\Trial.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

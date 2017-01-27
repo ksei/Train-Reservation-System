@@ -3,85 +3,91 @@
     ViewBag.Title = "Manage";
 }
 
-<h2>@ViewBag.Title.</h2>
+@Styles.Render("~/Content/Parallax.css")
+@Styles.Render("~/Content/font-awesome.min.css")
 
-<p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
+<head>
+<script>
+   
+    var timer;
+    function settimer() {
+        clearInterval(timer);
+
+      
+        var md = @Html.Raw(Model.date);
+        var end = new Date(md); // Arrange values in Date Time Format
+        var now = new Date(); // Get Current date time
+        var second = 1000; // Total Millisecond In One Sec
+        var minute = second * 60; // Total Sec In One Min
+        var hour = minute * 60; // Total Min In One Hour
+        var day = hour * 24; // Total Hour In One Day
+
+        console.log(end);
+        function showtimer() {
+            var now = new Date();
+            var remain = end - now; // Get The Difference Between Current and entered date time
+            if (remain < 0) {
+                clearInterval(timer);
+                document.getElementById("timer_value").innerHTML = 'Reached!';
+                return;
             }
-            else
+            var days = Math.floor(remain / day); // Get Remaining Days
+            var hours = Math.floor((remain % day) / hour); // Get Remaining Hours
+            var minutes = Math.floor((remain % hour) / minute); // Get Remaining Min
+            var seconds = Math.floor((remain % minute) / second); // Get Remaining Sec
+
+            document.getElementById("timer_value").innerHTML = days + 'Days ';
+            document.getElementById("timer_value").innerHTML += hours + 'Hrs ';
+            document.getElementById("timer_value").innerHTML += minutes + 'Mins ';
+            document.getElementById("timer_value").innerHTML += seconds + 'Secs';
+        }
+        timer = setInterval(showtimer, 1000); // Display Timer In Every 1 Sec
+    }
+
+    onload = settimer();
+</script>
+</head>
+<link rel='stylesheet prefetch' href='~/Content/font-awesome.min.css'>
+
+<body>
+    <section id="about" class="section-content about">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <figure class="fig-profile wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
+                        <img class="img-responsive img-circle img-profile" title="Roland Maruntelu" alt="Roland Maruntelu" src="~/Content/Images/user.png">
+                        <figcaption>Hello !</figcaption>
+                    </figure>
+                    <div class="flag">
+                        <span class="blue"></span>
+                        <span class="yellow"></span>
+                        <span class="red"></span>
+                    </div>
+                    <div class="clearfix"></div>
+                    <h2 class="name"><b>@Model.User.Name.Split(' ')[0]</b> @Model.User.Name.Split(' ')[1]</</h2>
+                    <h3 class="position">Amount Due:</h3>
+                    <h4 style="color:red" class="text-center location">$ @Model.User.Due</h4>
+                    <div class="title-divider">
+                        <span class="hr-divider col-xs-5"></span>
+                        <span class="icon-separator col-xs-2"><i class="fa fa-star"></i></span>
+                        <span class="hr-divider col-xs-5"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <p class="caption">You have @Model.bookings trips booked</p>
+                    <h2 class="slogan">Your next trip is in: </h2>
+                    <p class ="slogan"id="timer_value"></p>
+                    @if (Model.HasPassword)
             {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
-        @*
-            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
-             See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
-             Uncomment the following block after you have set up two-factor authentication
-        *@
-        @*  
-            <dt>Phone Number:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
+                        @Html.ActionLink("Change your password", "ChangePassword", new { @class="btn btn-default secondary-bg btn-lg"})
                     }
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                }
-            </dd>
-        *@
-        <dt>Two-Factor Authentication:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
-            @*@if (Model.TwoFactor)
-                {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    else
                     {
-                        @Html.AntiForgeryToken()
-                        <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
-                        </text>
+                        @Html.ActionLink("Create", "SetPassword", new { @class = "btn btn-default secondary-bg btn-lg" })
                     }
-                }
-                else
-                {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        </dd>
-    </dl>
-</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>

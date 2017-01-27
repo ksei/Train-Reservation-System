@@ -1,0 +1,507 @@
+﻿/*
+
+* Based on Cover by https://twitter.com/mdo"  @mdo
+* added cover image and background color to match (green)
+*
+* Globals
+
+*/
+
+/* Links */
+a,
+a:focus,
+a:hover {
+  color: #fff;
+}
+
+/* Custom default button */
+.btn-default,
+.btn-default:hover,
+.btn-default:focus {
+  color: #333;
+  text-shadow: none; /* Prevent inheritence from `body` */
+  background-color: #fff;
+  border: 1px solid #fff;
+}
+
+
+/*
+ * Base structure
+ */
+
+html,
+body {
+/*css for full size background image*/
+  background: url('../../Content/Images/train.jpg') no-repeat  fixed ; 
+ background-size:100%;
+
+  
+  height: 100%;
+  background-color: #fff;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,.5);
+  vertical-align: top;
+  
+
+ 
+}
+
+@import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+body
+{
+    font-family: 'Open Sans', sans-serif;
+    }
+
+.popup-box-on {
+    display: block !important;
+}
+.off {
+    display: none;
+}
+.chat_box .chat_message_wrapper ul.chat_message > li + li {
+    margin-top: 4px;
+}
+
+#search.open {
+    opacity: 1;
+    transform: translate(0px, 0px) scale(1, 1);
+}
+#search {
+    background-color: #fff;
+    height: 80%;
+    width:100%;
+    left: 0;
+    position: fixed;
+    top: 120px;
+    transition: all 0.5s ease-in-out 0s;
+    z-index: 2000;
+    text-align:left;
+    
+}
+
+
+
+input, select, textarea
+{
+    max-width:none;
+}
+#search .close {
+    color: #be5254;
+    font-size: 40px;
+    opacity: 1;
+    padding: 10px 17px;
+    position: fixed;
+    right: 15px;
+    top: 15px;
+}
+button.close {
+    background: transparent none repeat scroll 0 0;
+    border: 0 none;
+    cursor: pointer;
+}
+.close {
+    float: right;
+    font-weight: bold;
+    line-height: 1;
+    text-shadow: 0 1px 0 #fff;
+}
+
+#search input[type="text"] {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 0 none;
+    color: #333;
+    font-family: "Open Sans",sans-serif;
+    font-size: 50px;
+    font-weight: 300;
+    margin: -51px auto 0;
+    outline: medium none;
+    padding-left: 30px;
+    padding-right: 30px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 100%;
+}
+#search .btn {
+    left: 50%;
+    margin-top: 60px;
+    padding: 10px 50px;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%);
+}
+nav {
+    background: rgba(122, 16, 16, 0.3) none repeat scroll 0 0 !important;
+    border: medium none !important;
+    border-radius: 17px !important;
+    width:100%;
+    font-family:  Arial, Helvetica, sans-serif;
+    font-size:medium;
+font-stretch:condensed
+
+}
+.s-icon a {
+    background: #fff none repeat scroll 0 0 !important;
+    border-radius: 40px !important;
+    color: #be5254 !important;
+    font-size: 26px;
+    height: 44px;
+    margin: 3px -12px 0 0;
+    padding: 7px 0 0 !important;
+    text-align: center;
+    width: 44px;
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: #fff;
+}
+
+.loginpartial
+{
+    max-width: 22%;
+    position: fixed;
+    padding-left: 10px;
+    margin-top: 3px;
+    margin-left: -10px;
+    background-color: white;
+    border-radius: 50px;
+    height: 43px;
+    padding-top: 6px;
+    position: absolute;
+}
+}
+.navbar-inverse .navbar-brand {
+    background: #fff none repeat scroll 0 0 !important; 
+    border-radius: 50px;
+     color: #be5254 !important;
+    height: auto;
+    width:100px;
+    margin: 3px 0 2px -12px !important;
+    padding: 12px 20px !important;
+}
+.btn-lg, .btn-group-lg > .btn {
+    border-radius: 153px;
+    font-size: 29px;
+}
+.btn-site {
+    background: #be5254 none repeat scroll 0 0;
+    color: #fff !important;
+}
+
+
+.editicon {
+    display: block;
+    height: 32px;
+    width: 32px;
+    background-color: transparent;
+  
+
+    background-attachment:fixed;
+    background:url('../../Content/Images/edit.png');
+   opacity : 0.3;
+    z-index: -1;
+    background-image:radial-gradient();
+}
+
+.editicon:hover{
+   display: block;
+    height: 32px;
+    width: 32px;
+    background-color: transparent;
+  
+
+    background-attachment:fixed;
+    background:url('../../Content/Images/edit1.png');
+   opacity : 0.3;
+    z-index: -1;
+    background-image:radial-gradient();
+}
+
+
+
+.deleteicon{
+
+       display: block;
+    height: 32px;
+    width: 32px;
+    background-color: transparent;
+  
+
+    background-attachment:fixed;
+    background:url('../../Content/Images/delete.png');
+   opacity : 0.3;
+    z-index: -1;
+    background-image:radial-gradient();
+}
+.deleteicon:hover{
+   display: block;
+    height: 32px;
+    width: 32px;
+    background-color: transparent;
+  
+
+    background-attachment:fixed;
+    background:url('../../Content/Images/delete1.png');
+   opacity : 0.3;
+    z-index: -1;
+    background-image:radial-gradient();
+}
+
+.wrapperx
+{
+      margin-left: 10%;
+    margin-bottom: 10%;
+}
+.infoicon{
+       display: block;
+    height: 32px;
+    width: 32px;
+    background-color: transparent;
+  
+
+    background-attachment:fixed;
+    background:url('../../Content/Images/info.png');
+   opacity : 0.3;
+    z-index: -1;
+    background-image:radial-gradient();
+}
+.infoicon:hover{
+   display: block;
+    height: 32px;
+    width: 32px;
+    background-color: transparent;
+  
+
+    background-attachment:fixed;
+    background:url('../../Content/Images/info1.png');
+   opacity : 0.3;
+    z-index: -1;
+    background-image:radial-gradient();
+}
+
+.createicon{
+         display: block;
+    height: 100px;
+    width: 100px;
+  background-color: transparent;
+  align-content:center;
+
+    background:url('../../Content/Images/create.png');
+   opacity : 1;
+    margin-left: 40%; 
+    margin-right: 40%;  position:center;
+    
+}
+
+.bookicon
+{
+       display: block;
+    height: 50px;
+    width: 50px;
+  background-color: transparent;
+  align-content:center;
+  margin:10px;
+   padding:10px;
+    background:url('../../Content/Images/book.png');
+   opacity : 0.7;
+   
+}
+
+
+.table#acrylic {
+            background: rgba(255,255,255,.95);
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            margin: 50px auto;
+            -moz-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+            -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            opacity:0.7;
+            position:center;
+                margin-top: 10%;
+  
+    
+           
+        }
+        
+        #acrylic thead {
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+        }
+        
+        #acrylic thead th {
+            font-family: 'Arial';
+            font-size: 16px;
+            font-weight: 400;
+            color: #fff;
+            text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+            text-align: left;
+            padding: 20px;
+            background-size: 100%;
+            background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #646f7f), color-stop(100%, #4a5564));
+            background-image: -moz-linear-gradient(#646f7f, #4a5564);
+            background-image: -webkit-linear-gradient(#646f7f, #4a5564);
+            background-image: linear-gradient(#646f7f, #4a5564);
+            border-top: 1px solid #858d99;
+            opacity:0.95;
+        }
+
+        .loginlink {
+            list-style-type: none;
+            display: block;
+            position:relative;
+    height: 32px;
+    width:120px;
+  background-image: url('../../Content/Images/login.png');
+  background-position: left center;
+  background-repeat: no-repeat;
+  padding-left: 25px; /* Adjust according to image size to push text across. */
+      color: cadetblue;
+    font-size: 19px;
+    padding-top: 3px;
+    padding-left: 2px;
+}
+               .accountlink {
+            list-style-type: none;
+            display: block;
+            position:relative;
+    height: 32px;
+    width:120px;
+  background-image: url('../../Content/Images/account.png');
+  background-position: left center;
+  background-repeat: no-repeat;
+  padding-left: 25px; /* Adjust according to image size to push text across. */
+      color: cadetblue;
+    font-size: 19px;
+    padding-top: 3px;
+    padding-left: 2px;
+}
+
+
+        
+
+        .registerlink {
+                color: peru;
+    font-size: 19px;
+    padding-top: 4px;
+
+            list-style-type: none;
+            display: block;
+            position:relative;
+    height: 32px;
+    width:120px;
+  background-image: url('../../Content/Images/register.png');
+  background-position: left center;
+  background-repeat: no-repeat;
+  padding-left: 20px; /* Adjust according to image size to push text across. */
+}
+
+        .logout {
+                color: peru;
+    font-size: 19px;
+    padding-top: 4px;
+
+            list-style-type: none;
+            display: block;
+            position:relative;
+    height: 32px;
+    width:120px;
+  background-image: url('../../Content/Images/logout.png');
+  background-position: left center;
+  background-repeat: no-repeat;
+  padding-left: 20px; /* Adjust according to image size to push text across. */
+  margin-right:-80px;
+}
+        #acrylic thead th:first-child {
+            -moz-border-top-right-radius: 5px;
+            -webkit-border-top-left-radius: 5px;
+            border-top-left-radius: 5px;
+        }
+        
+        #acrylic thead th:last-child {
+            -moz-border-top-right-radius: 5px;
+            -webkit-border-top-right-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+        
+        #acrylic tbody tr td {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 400;
+            color: #5f6062;
+            font-size: 13px;
+            padding: 20px 20px 20px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            
+        }
+        
+        #acrylic tbody tr {
+            background: #f0f3f5;
+        }
+        
+        #acrylic tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        #acrylic tbody tr:last-child td:first-child {
+            -moz-border-bottom-right-radius: 5px;
+            -webkit-border-bottom-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+        
+        #acrylic tbody tr:last-child td:last-child {
+            -moz-border-bottom-right-radius: 5px;
+            -webkit-border-bottom-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+        
+     
+        
+        #acrylic tbody:hover > tr:hover td {
+            text-shadow: none;
+            color: #2d2d2d;
+            filter: progid: DXImageTransform.Microsoft.Alpha(enabled=false);
+            opacity: 1;
+            transition: 0.2s all;
+        }
+
+        /* Dropdown Button */
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}

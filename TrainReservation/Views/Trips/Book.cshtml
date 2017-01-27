@@ -4,69 +4,287 @@
 @{
     ViewBag.Title = "Confirm";
 }
+@Styles.Render("~/Content/Train.css")
 
-<h2>Confirm Booking</h2>
+@section Scripts
+{
+    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+    <script>
+        var chosen_seat_id = -1;
 
-<h3>Are you sure you want to book this trip?</h3>
-<div>
-    <h4>Trip</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Bookings.SeatId)
-        </dt>
+        $(document).ready(function () {
+            $("#firstWagon").trigger("click");
+        });
 
-        <dd>
-            @Html.DisplayFor(model => model.Bookings.SeatId)
-        </dd>
+        $('li.seat > input').on('click', function () {
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Trips.Departure)
-        </dt>
+            $('.seat > input').attr('checked', false);
+            this.checked = true;
+            chosen_seat_id = $(this).parent().children('label').html();
+            $('#chosen-seat').html(chosen_seat_id);
+            $('#seat-to-send').val(chosen_seat_id);
+            $('#confbtn').prop('disabled', false);
 
-        <dd>
-            @Html.DisplayFor(model => model.Trips.Departure)
-        </dd>
+        });
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Trips.Departure_Time)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Trips.Departure_Time)
-        </dd>
+        $('.wagon').on('click', function () {
+            $('.wagon').css("filter", "contrast(50%)");
+            $('.wagon').css("filter", "grayscale(100%)");
+            $(this).css("filter", "contrast(150%)");
+            $(this).css("filter", "grayscale(0%)");
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Trips.Destination)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Trips.Destination)
-        </dd>
-        
-        <dt>
-            @Html.DisplayNameFor(model => model.Trips.Arrival_Time)
-        </dt>
+            var wagon_num = $(this).attr('num');
+            $('.seat > input').attr('checked', false);
 
-        <dd>
-            @Html.DisplayFor(model => model.Trips.Arrival_Time)
-        </dd>
+            $('li.seat > input').each(function () {
+                var seat_id = $(this).attr('id');
+                var x = 0;
+                for (var i = 0; i < seat_id.length - 1; i++) {
+                    x *= 10;
+                    x += seat_id[i] - '0';
+                }
+                var x_old = x;
+                x += (wagon_num - 1) * 10;
+                var s = x.toString();
+                s = s + seat_id[seat_id.length - 1];
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Trips.Price)
-        </dt>
+                if (s == chosen_seat_id.toString()) {
+                    this.checked = true;
+                }
+                var seatArray = $('.plane').attr('seat_plan').split(',');
+                console.log(seatArray[0]);
+                var i = wagon_num;
+                var j = x_old % 10;
 
-        <dd>
-            @Html.DisplayFor(model => model.Trips.Price) BGN
-        </dd>
+                var h = (i - 1) * 24 + (j - 1) * 4 + seat_id[seat_id.length - 1].charCodeAt(0) - 'A'.charCodeAt(0);
+                console.log(h);
+                console.log(seatArray[h]);
 
-    </dl>
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-            <div class="form-actions no-color">
-                <button onclick="@Url.Action("BookingConfirmed" , "Confirm", new { id = Model.Bookings.TripID , sender = HttpContext.Current.User.Identity.GetUserId() })">Confirm</button> |
-                @Html.ActionLink("Back to List", "Index")
+                if (seatArray[h][3] == '0')
+                { this.disabled = false; }
+                else { this.disabled = true; }
+
+                $(this).parent().children('label').html(s);
+            });
+        });
+
+        // Model.Trips.SeatPlan
+       
+       
+     </script>
+}
+
+
+
+
+
+<body>
+    <div class="container body-content">
+        <div class="top-div">
+            <h3 class="modal-title">Please select a seat and confirm your booking</h3>
+
+            <div class="leftcol">
+                <h4>Trip Details:</h4>
+                <dl class="dl-horizontal">
+
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Trips.Departure)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Trips.Departure)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Trips.Departure_Time)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Trips.Departure_Time)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Trips.Destination)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Trips.Destination)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Trips.Arrival_Time)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Trips.Arrival_Time)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Trips.Price)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Trips.Price) BGN
+                    </dd>
+
+                </dl>
+
+
+
+
+
+                @using (Html.BeginForm())
+                {
+
+                    <div style="text-align:center;">
+                        <input style="max-width: 10%; border: none; float:right; margin-right:35%; font:bold 900; color:#053f0e" id="seat-to-send" name="SeatNo" />
+                        <p class="dl-horizontal">You have Chosen Seat Number: </p>
+                        <p style="width:100%">Book (this)?</p>
+
+                        @Html.AntiForgeryToken()
+                        <div class="form-actions no-color">
+                            <button class="btn btn-success btn-md" id="confbtn"  disabled='disabled' onclick="@Url.Action( "BookingConfirmed", "Confirm" , new { id=Model.Bookings.TripID , sender=HttpContext.Current.User.Identity.GetUserId() })">Confirm</button>
+
+                        </div>
+                    </div>
+                }
+
+                <div style="color:red">
+                    @Html.ActionLink("Back to Trips", "Index", new { @style = "display:block;" })
+                </div>
             </div>
-        }
-</div>
+            <div class="rightcol">
+
+                <div class="plane" seat_plan="@Model.Trips.SeatPlan">
+                    <div class="cockpit">
+                        <h1>Please select a seat</h1>
+                    </div>
+                    <div class="exit exit--front fuselage">
+
+                    </div>
+                    <ol class="cabin fuselage">
+
+                        @{List<string> seatArray = Model.Trips.SeatPlan.Split(',').ToList<string>(); }
+
+                        @{int n = int.Parse(seatArray[seatArray.Count - 1][0].ToString());
+                            int i = 1; }
+                        <li li class="row row--1">
+                            @for (int j = 1; j <= 6; j++)
+                            {
+                                <ol class="seats" type="A">
+
+                                    <li class="seat">
+
+
+                                        @if (seatArray[(i - 1) * 24 + (j - 1) * 4 + 0].ElementAt(3) == '0')
+                                        {
+                                            string s = i.ToString() + j.ToString() + "A";
+
+                                            <input type="checkbox" id="@s" />
+                                                <label for="@s"> @s</label>}
+                                        else
+                                        {
+                                            string s = i.ToString() + j.ToString() + "A";
+                                            <input type="checkbox" disabled id="@s" />
+
+                                                <label for="@s">Occupied</label>
+                                        }
+                                    </li>
+                                    <li class="seat">
+                                        @if (seatArray[(i - 1) * 24 + (j - 1) * 4 + 1].ElementAt(3) == '0')
+                                        {
+                                            string s = i.ToString() + j.ToString() + "B";
+                                            <input type="checkbox" id="@s" />
+                                                <label for="@s">@s</label>}
+                                        else
+                                        {
+                                            string s = i.ToString() + j.ToString() + "B";
+                                            <input type="checkbox" disabled id="@s" />
+                                                <label for="@s">Occupied</label>
+                                        }
+                                    </li>
+                                    <li class="seat">
+                                        @if (seatArray[(i - 1) * 24 + (j - 1) * 4 + 2].ElementAt(3) == '0')
+                                        {
+                                            string s = i.ToString() + j.ToString() + "C";
+                                            <input type="checkbox" id="@s" />
+                                                <label for="@s">@s</label>}
+                                        else
+                                        {
+                                            string s = i.ToString() + j.ToString() + "C";
+                                            <input type="checkbox" disabled id="@s" />
+                                                <label for="@s">Occupied</label>
+                                        }
+                                    </li>
+                                    <li class="seat">
+                                        @if (seatArray[(i - 1) * 24 + (j - 1) * 4 + 3].ElementAt(3) == '0')
+                                        {
+                                            string s = i.ToString() + j.ToString() + "D";
+                                            <input type="checkbox" id="@s" />
+                                                <label for="@s">@s</label>}
+                                        else
+                                        {
+                                            string s = i.ToString() + j.ToString() + "D";
+                                            <input type="checkbox" disabled id="@s" />
+                                                <label for="@s">Occupied</label>
+                                        }
+                                    </li>
+                                </ol>
+                            }
+                        </li>
+
+                    </ol>
+                    <div class="exit exit--back fuselage">
+
+                    </div>
+                </div>
+
+
+
+
+                <div class="train-view">
+
+                    <table class="train-table">
+                        @for (int a = 1; a <= n; a++)
+                        {
+                            if (a == 1)
+                            {
+                                <tr class="wagon" num="@a" id="firstWagon">
+                                    <td onClick="">
+
+                                        <img src="~/Content/Images/trainFS.png" alt="" style="width:40px; height:150px;">
+                                    </td>
+                                </tr>
+                            }
+                            else if (a == n)
+                            {
+                                <tr class="wagon" num="@a">
+                                    <td onClick="">
+
+                                        <img src="~/Content/Images/trainLS.png" alt="" style="width:40px; height:150px;">
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr class="wagon" num="@a">
+                                    <td onClick="">
+
+                                        <img src="~/Content/Images/trainMS.png" alt="" style="width:40px; height:150px;">
+                                    </td>
+                                </tr>}
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</body>
+

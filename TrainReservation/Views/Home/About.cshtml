@@ -1,7 +1,49 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+
+
+@Styles.Render("~/Content/Parallax.css")
+@Styles.Render("~/Content/font-awesome.min.css")
+<body>
+    <section id="about" class="section-content about">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <figure class="fig-profile wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
+                        <img class="img-responsive img-circle img-profile" title="Roland Maruntelu" alt="Roland Maruntelu" src="~/Content/Images/About.png">
+                        <figcaption>Welcome !</figcaption>
+                    </figure>
+                    <div class="flag">
+                        <span class="blue"></span>
+                        <span class="yellow"></span>
+                        <span class="red"></span>
+                    </div>
+                    <div class="clearfix"></div>
+                    <h2 class="name"><b>AUBG</b> Train Lines</</h2>
+                    <h3 class="position">Train Travel Agency</h3>
+                    <h4  class="text-center location">Blagoevgrad, Bulgaria</h4>
+                    <div class="title-divider">
+                        <span class="hr-divider col-xs-5"></span>
+                        <span class="icon-separator col-xs-2"><i class="fa fa-star"></i></span>
+                        <span class="hr-divider col-xs-5"></span>
+                    </div>
+                </div>
+
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <p class="caption"><b>ADDRESS:</b> AUBG Campus, Svoboda Bachvarova, Blagoevgrad, 2700</p>
+                    <p class="caption"><b>EMAIL:</b> kna140@aubg.edu | jns140@aubg.edu | dnk140@aubg.edu</p>
+                    <div class="title-divider">
+                        <span class="hr-divider col-xs-5"></span>
+                        <span class="icon-separator col-xs-2"><i class="fa fa-star"></i></span>
+                        <span class="hr-divider col-xs-5"></span>
+                    </div>
+                     <p class="caption">Thank You for choosing Us!</p>
+          
+           
+                </div>
+            </div>
+        </div>
+    </section>
+</body>

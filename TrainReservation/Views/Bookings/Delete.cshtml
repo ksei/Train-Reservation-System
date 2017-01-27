@@ -4,44 +4,67 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Cancel Booking</h2>
-
-<h3>Are you sure you want to cancel your booking?</h3>
-<div>
-    
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.tripId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => Model.tripId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.tripName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => Model.tripName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.seatId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => Model.seatId)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+@Styles.Render("~/Content/Delete.css")
+<link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,400italic,700,500italic' rel='stylesheet' type='text/css'>
+<div class="col-md-3">
 </div>
+<div class="col-md-6">
+    <!-- START PANEL -->
+    <div class="panel panel-default" style="margin-top: 50px">
+        <div class="panel-heading ui-draggable-handle">
+            <h3 class="panel-title"> </h3>
+        </div>
+        <div class="panel-body" style="font-family: ubuntu">
+            <div class="block">
+                <form class="form-horizontal" role="form">
+                    <div class="panel-body panel-body-pricing">
+                        <h2>Confirm Booking Deletion</h2>
+                        <hr>
+                        <table style="width: 100%">
+                            <tbody>
+                                <tr>
+                                    <h3>Please confirm the cancellation of this booking </h3>
+                                </tr>
+                                <tr>
+
+                                    <td width="40%"><h3 style="color: #828c95"><b>Interval</b></h3></td>
+                                    <td><h3 style="font-size: 20px">@Model.tripName </h3></td>
+                                </tr>
+                                <tr>
+
+                                    <br>
+                                    <td width="40%"><h3 style="color: #828c95"><b>Departure Time</b></h3></td>
+                                    <td><h3 style="font-size: 20px">@Model.Time </h3></td>
+                                </tr>
+                                <tr>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <td width="40%"><h3 style="color: #828c95"><b>Seat</b></h3></td>
+                                    <td><h3 style="font-size: 20px">@Model.seatId </h3></td>
+                                </tr>
+                                <tr>
+                                    <br>
+                                    <br>
+                                    <br>
+                                    <td width="40%"><h3 style="color: #828c95"><b>Booked By</b></h3></td>
+                                    <td><h3 style="font-size: 20px">@HttpContext.Current.User.Identity.Name</h3></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </form>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div style="text-align: center">
+                        <button type="submit" class="btn-middle rounded" value="Delete" style="margin-top: 20px; background-color: #05e2b6; color: white; border: none">
+                            Delete
+                        </button>
+                    </div>
+                }
+
+            </div>

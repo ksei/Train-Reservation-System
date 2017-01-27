@@ -1,0 +1,13 @@
+﻿@using System.DirectoryServices.AccountManagement
+@helper UserFullName()
+{
+using (var context = new PrincipalContext(ContextType.Domain))
+{
+    var principal = UserPrincipal.FindByIdentity(context, User.Identity.Name);
+    if (principal != null)
+    {
+        var fullName = string.Format("{0}", principal.Name.Split(' ')[0]);
+            @fullName
+    }
+}
+}

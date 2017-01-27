@@ -1,53 +1,158 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE HTML>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/bootstrap.css")
+
+    <title>AUBS Lines</title>
+    <link href="~/Content/bootstrap.css" rel='stylesheet' type='text/css' />
+    <link href="~/Content/style.css" rel='stylesheet' type='text/css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <script src="~/Scripts/jquery.min.js"></script>
+    <!--<script src="~/Scripts/jquery.easydropdown.js"></script>-->
+    <!--start slider -->
+    <link rel="stylesheet" href="css/fwslider.css" media="all">
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/fwslider.js"></script>
+    <!--end slider -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".dropdown img.flag").addClass("flagvisibility");
+
+            $(".dropdown dt a").click(function () {
+                $(".dropdown dd ul").toggle();
+            });
+
+            $(".dropdown dd ul li a").click(function () {
+                var text = $(this).html();
+                $(".dropdown dt a span").html(text);
+                $(".dropdown dd ul").hide();
+                $("#result").html("Selected value is: " + getSelectedValue("sample"));
+            });
+
+            function getSelectedValue(id) {
+                return $("#" + id).find("dt a span.value").html();
+            }
+
+            $(document).bind('click', function (e) {
+                var $clicked = $(e.target);
+                if (!$clicked.parents().hasClass("dropdown"))
+                    $(".dropdown dd ul").hide();
+            });
 
 
+            $("#flagSwitcher").click(function () {
+                $(".dropdown img.flag").toggleClass("flagvisibility");
+            });
+        });
+    </script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="header">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Aubg Train Lines", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="header-left">
+                        <div class="logo">
+                            <a href="../../../Home"><img src="~/Content/Images/trainlogin.png" alt="" /></a>
+                        </div>
+                        <div class="menu">
+                            <a class="toggleMenu" href="#"><img src="images/nav.png" alt="" /></a>
+                            <ul class="nav" id="nav">
+
+                                
+                                @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                                {
+                                    <li>@Html.ActionLink("TRIPS", "Index", "Trips")</li>
+                                    <li>@Html.ActionLink("VIEW USERS", "AllUsers", "Manage")</li>}
+                                else
+                                {
+                                    <li>@Html.ActionLink("TRIPS", "Index", "Trips")</li>}
+
+                                @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                                {
+                                    <li>@Html.ActionLink("MY BOOKINGS", "Index", "Bookings")</li>
+                                }
+                                <li>@Html.ActionLink("ABOUT", "About", "Home")</li>
+                               
+
+                                <div class="clear"></div>
+                            </ul>
+                            <script type="text/javascript" src="~/Scripts/responsive-nav.js"></script>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="header_right">
+                        <!-- start search-->
+                     <table>
+                         <tr>
+                             <td>
+                                 <div class="search-box">
+                                     <div id="sb-search" class="sb-search">
+                                         <form method="get" action="@Url.Action("SearchTrips", "Trips")">
+
+                                             <input class="sb-search-input" placeholder="Enter your departure place here..." type="search" name="search" id="search">
+                                             <input class="sb-search-submit" type="submit" value="">
+                                             <span class="sb-icon-search"> </span>
+                                             <button type="submit"></button>
+
+                                         </form>
+                                     </div>
+                                 </div>
+
+
+
+
+                                 <!----search-scripts---->
+                                 <script src="~/Scripts/classie.js"></script>
+                                 <script src="~/Scripts/uisearch.js"></script>
+                                 <script>
+                                     new UISearch(document.getElementById('sb-search'));
+                                     document.getElementById('search').value
+                                 </script>
+                                 <!----//search-scripts---->
+
+                             </td>
+                         <td>
+                        <div class="dropdown">
+@if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+{
+
+                            <button class="dropbtn">@User.Identity.Name</button>}
+else
+{
+    <button class="dropbtn">Account</button>
+}
+                            <div class="dropdown-content">
+                                 @Html.Partial("_LoginPartial")
+                               
+                            </div>
+                        </div>
+                             </td>
+                             </tr>
+                         </table>
+
+
+                        <div class="clear"></div>
+                    </div>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated && User.IsInRole("admin"))
-                    {<li>@Html.ActionLink("Edit Trips", "Index", "Trips")</li>
-                    <li>@Html.ActionLink("View Users", "AllUsers", "Manage")</li>}
-                    else
-                    {<li>@Html.ActionLink("View Trips", "Index", "Trips")</li>}
-                    @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("View Bookings", "Index", "Bookings")</li>
-                    }
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+           
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+
+        <div >
+            @RenderBody()
+        </div>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+
+
 </body>
+
 </html>

@@ -37,6 +37,29 @@ namespace TrainReservation.Controllers
             return View(trip);
         }
 
+        [HttpGet]
+        public ActionResult SearchTrips(string search)
+        {
+            //do whatever you need with the parameter, 
+            //like using it as parameter in Linq to Entities or Linq to Sql, etc. 
+            //Suppose your search result will be put in variable "result".
+            string departure = search;
+            List<Trip> data = new List<Trip>();
+
+            foreach (var bing in db.Trips.Where(trip => trip.Departure == search).ToList())
+            {
+                Trip mymodel = new Trip();
+
+                mymodel = bing;
+
+                data.Add(mymodel);
+
+            }
+
+            return View(data.ToList());
+        }
+
+
         // GET: Trips/Create
         [Authorize(Roles = "admin")]
         public ActionResult Create()
@@ -159,7 +182,7 @@ namespace TrainReservation.Controllers
         // POST: Trips/Delete/5
         [HttpPost, ActionName("Book")]
         [ValidateAntiForgeryToken]
-        public ActionResult BookingConfirmed(int?id, string sender)
+        public ActionResult BookingConfirmed(int?id, string sender, string SeatNo)
         {
 
          
@@ -167,7 +190,7 @@ namespace TrainReservation.Controllers
             Bookings booking = new Bookings();
             booking.TripID = (int)id;
             booking.UserId = sender;
-            booking.SeatId = findNextAvailableSeat((int)id);
+            booking.SeatId = SeatNo;
             occupySeat(booking.SeatId, (int)id);
             db.Bookings.Add(booking);
             db.Trips.Find(booking.TripID).Seats--;

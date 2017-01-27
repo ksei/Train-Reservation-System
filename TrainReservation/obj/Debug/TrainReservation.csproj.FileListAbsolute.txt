@@ -77,9 +77,9 @@ D:\Libraries\Documents\Visual Studio 2015\Projects\TrainReservation\TrainReserva
 D:\Libraries\Documents\Visual Studio 2015\Projects\TrainReservation\TrainReservation\bin\Microsoft.Owin.Security.Google.xml
 D:\Libraries\Documents\Visual Studio 2015\Projects\TrainReservation\TrainReservation\bin\Microsoft.Owin.Security.Twitter.xml
 D:\Libraries\Documents\Visual Studio 2015\Projects\TrainReservation\TrainReservation\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\Libraries\Documents\Visual Studio 2015\Projects\TrainReservation\TrainReservation\obj\Debug\TrainReservation.csprojResolveAssemblyReference.cache
+D:\Libraries\Documents\Visual Studio 2015\Projects\TrainReservation\TrainReservation\obj\Debug\TrainReservation.Migrations.InitialCreate.resources
+D:\Libraries\Documents\Visual Studio 2015\Projects\TrainReservation\TrainReservation\obj\Debug\TrainReservation.Migrations.Update.resources
+D:\Libraries\Documents\Visual Studio 2015\Projects\TrainReservation\TrainReservation\obj\Debug\TrainReservation.csproj.GenerateResource.Cache
 D:\Libraries\Documents\Visual Studio 2015\Projects\TrainReservation\TrainReservation\obj\Debug\TrainReservation.dll
 D:\Libraries\Documents\Visual Studio 2015\Projects\TrainReservation\TrainReservation\obj\Debug\TrainReservation.pdb
-D:\Libraries\Documents\Visual Studio 2015\Projects\TrainReservation\TrainReservation\obj\Debug\TrainReservation.Migrations.InitialCreate.resources
-D:\Libraries\Documents\Visual Studio 2015\Projects\TrainReservation\TrainReservation\obj\Debug\TrainReservation.csproj.GenerateResource.Cache
-D:\Libraries\Documents\Visual Studio 2015\Projects\TrainReservation\TrainReservation\obj\Debug\TrainReservation.Migrations.Update.resources
+D:\Libraries\Documents\Visual Studio 2015\Projects\TrainReservation\TrainReservation\obj\Debug\TrainReservation.csprojResolveAssemblyReference.cache

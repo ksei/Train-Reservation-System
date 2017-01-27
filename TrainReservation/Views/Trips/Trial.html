@@ -1,0 +1,79 @@
+﻿<div class="modal in" style="display: block;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Are you sure you want to book this trip ?</h4>
+            </div>
+            <h4>Trip @Html.DisplayNameFor(model => model.Bookings.TripID)</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Bookings.SeatId)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Bookings.SeatId)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Trips.Departure)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Trips.Departure)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Trips.Departure_Time)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Trips.Departure_Time)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Trips.Destination)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Trips.Destination)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Trips.Arrival_Time)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Trips.Arrival_Time)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Trips.Price)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Trips.Price) BGN
+                </dd>
+
+            </dl>
+            <div class="modal-body">
+
+                <p>Are you sure you want to book (this)?</p>
+                <div class="row">
+                    <div class="col-12-xs text-center">
+                        @using (Html.BeginForm())
+                        {
+                        @Html.AntiForgeryToken()
+                        <div class="form-actions no-color">
+                            <button class="btn btn-success btn-md" onclick="@Url.Action( "BookingConfirmed", "Confirm" , new { id=Model.Bookings.TripID , sender=HttpContext.Current.User.Identity.GetUserId() })">Confirm</button> 
+                            <button class="btn btn-danger btn-md" onclick="Url.Action( " Back to List", "Index" )">No</button>
+
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

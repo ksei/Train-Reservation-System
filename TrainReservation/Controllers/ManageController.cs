@@ -7,13 +7,17 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TrainReservation.Models;
+using TrainReservationDBContext;
+using System.Collections.Generic;
 
 namespace TrainReservation.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
-        //private ApplicationDbContext udb = new ApplicationDbContext();
+        private ApplicationDbContext udb = new ApplicationDbContext();
+        private TrainReservationDbContext db = new TrainReservationDbContext();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -53,8 +57,9 @@ namespace TrainReservation.Controllers
 
         //
         // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        public async Task<ActionResult> Index(ManageMessageId? message, string userid)
         {
+      
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
@@ -65,6 +70,11 @@ namespace TrainReservation.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            string uid = User.Identity.GetUserId();
+            ApplicationUser u = new Models.ApplicationUser();
+            u = udb.Users.Find(uid);
+
+           
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -72,7 +82,27 @@ namespace TrainReservation.Controllers
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+              
             };
+            model.User = u;
+            model.bookings = 0;
+            List<DateTime> date = new List<DateTime>();
+
+            foreach (var bing in db.Bookings.ToList())
+            {
+                if (bing.UserId == u.Id && DateTime.Compare(DateTime.Now, db.Trips.Find(bing.TripID).Departure_Time) <1)
+                {
+                    model.bookings++;
+                    date.Add(db.Trips.Find(bing.TripID).Departure_Time);
+
+                }
+            }
+
+            model.date = ToJavascriptTimestamp(findClosestDate(date));
+
+
+
+
             return View(model);
         }
 
@@ -348,7 +378,32 @@ namespace TrainReservation.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        protected DateTime findClosestDate (List<DateTime> dateList)
+        {
+            DateTime now = DateTime.Now;
+            DateTime min = now;
+            
+            foreach(var date in dateList)
+            {
+                
+                if(DateTime.Compare(now,date)<1 && DateTime.Compare(date, min)<=1)
+                {
+                    min = date;
+                }
+            }
+            return min;
+        }
+
+
+
+        public static long ToJavascriptTimestamp( DateTime input)
+        {
+            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var time = input.Subtract(new TimeSpan(epoch.Ticks));
+            return (long)(time.Ticks / 10000);
+        }
+
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 

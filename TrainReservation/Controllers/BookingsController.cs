@@ -157,11 +157,17 @@ namespace TrainReservation.Models
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            //Find booking on Database
             Bookings bookings = db.Bookings.Find(id);
+            //Remove booking from database
             db.Bookings.Remove(bookings);
+            //Release seat on the trip corresponding to the booking
             releaseSeat(bookings.SeatId, bookings.TripID);
+            //increase the seats available for the trip
             db.Trips.Find(bookings.TripID).Seats++;
+
             db.SaveChanges();
+            //refund user for the canceled booking
             refundUser(bookings.TripID, bookings.UserId);
             
             return RedirectToAction("Index");
